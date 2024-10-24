@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/student.css">
+    <script src="https://kit.fontawesome.com/33ea8ad391.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav id="top">
+        <img src="./images/dashboard.png" alt="Icon">
+        <div>
+            <button id="minimizeBtn"><i class="fa-solid fa-minus"></i></button>
+            <button id="closeBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </nav>
+    <nav id="side">
+        <div class="top">
+            <i class="fa-solid fa-database fa-2xl"></i>
+            <h3>Softaware & Game Development</h3>
+        </div>
+        <section>
+            <h3>Main</h3>
+            <button>
+                <i class="fa-solid fa-table-columns fa-lg"></i>
+                <p>Dashboard</p>
+            </button>
+            <button id="studentsBtn" class="selected">
+                <i class="fa-solid fa-users fa-lg"></i>
+                <p>Students</p>
+            </button>
+        </section>
+        <section>
+            <h3>Example</h3>
+            <button>
+                <i class="fa-solid fa-expand fa-lg"></i>
+                <p>Example</p>
+            </button>
+            <button>
+                <i class="fa-solid fa-expand fa-lg"></i>
+                <p>Example</p>
+            </button>
+        </section>
+    </nav>
+    <main>
+        <div id="studentsPage" class="shown">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Status</th>
+                        <th>NFC</th>
+                        <th>Last Activity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="studentName">
+                            <i class="fa-solid fa-user fa-xl"></i>
+                            <h2>Student Name</h2>
+                            <h3>123</h3>
+                        </td>
+                        <td class="txt status in">IN</td>
+                        <td class="txt">C2A931F1E65FDB</td>
+                        <td class="txt">10/14/24 06:04</td>
+                    </tr>
+                    <tr>
+                        <td class="studentName">
+                            <i class="fa-solid fa-user fa-xl"></i>
+                            <h2>Student Name</h2>
+                            <h3>123</h3>
+                        </td>
+                        <td class="txt status in">IN</td>
+                        <td class="txt">C2A931F1E65FDB</td>
+                        <td class="txt">10/14/24 06:04</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <script src="./scripts/client.js" defer></script>
+</body>
+
+</html>
