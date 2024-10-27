@@ -26,16 +26,16 @@ nav#top {
     -webkit-app-region: drag;
 }
 
-nav#top > img {
+nav#top>img {
     height: 60%;
     margin-left: 5px;
 }
 
-nav#top > div {
+nav#top>div {
     height: 100%;
 }
 
-nav#top > div > button {
+nav#top>div>button {
     height: 100%;
     border: none;
     background: transparent;
@@ -48,6 +48,7 @@ nav#top > div > button {
 #minimizeBtn:hover {
     background-color: rgb(255, 201, 86);
 }
+
 #closeBtn:hover {
     background-color: rgb(255, 64, 64);
 }
@@ -56,14 +57,14 @@ nav#side {
     height: 100%;
     width: 20%;
     background-color: rgb(28, 28, 31);
-    border-right: 1px solid rgba(255,255,255,0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 nav#side .top {
     height: 60px;
     width: 100%;
     display: flex;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     align-items: center;
 }
 
@@ -118,29 +119,46 @@ nav#side section button p {
 }
 
 nav#side section button:hover {
-     background-color: rgba(255,255,255,0.075);
+    background-color: rgba(255, 255, 255, 0.075);
 }
 
 nav#side section button.selected {
-    background-color: rgba(255,255,255,0.125);
+    background-color: rgba(255, 255, 255, 0.125);
 }
 
 main {
     position: absolute;
-    top:3%;
+    top: 3%;
     left: 20%;
     width: 80%;
     height: 97%;
 }
 
-main > div {
+main>div {
     width: 100%;
     height: 100%;
     display: none;
     visibility: hidden;
 }
 
-main > div.shown {
+main>div.shown {
     display: flex;
     visibility: visible;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #303138;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #464752;
 }

@@ -1,3 +1,7 @@
+#studentsPage {
+    overflow-y: auto;
+}
+
 #studentsPage table {
     margin: 15px;
     text-align: left;
@@ -23,6 +27,8 @@
 
 #studentsPage tbody tr td {
     background-color: rgb(28, 28, 32);
+    cursor: pointer;
+    transition: 250ms;
 }
 
 #studentsPage tbody tr td:first-child {
@@ -74,6 +80,6 @@
     color: rgb(255, 59, 59);
 }
 
-#studentsPage td {
-
+#studentsPage tbody tr:hover td {
+    background-color: #292930;
 }
