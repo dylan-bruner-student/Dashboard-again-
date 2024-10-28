@@ -6,16 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/dashboard.css">
     <link rel="stylesheet" href="./styles/student.css">
     <script src="https://kit.fontawesome.com/33ea8ad391.js" crossorigin="anonymous"></script>
+    <script src="./node_modules/chart.js/dist/chart.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.11/signalr.min.js"></script>
 </head>
 
 <body>
     <nav id="top">
         <img src="./images/dashboard.png" alt="Icon">
         <div>
-            <button id="minimizeBtn"><i class="fa-solid fa-minus"></i></button>
-            <button id="closeBtn"><i class="fa-solid fa-xmark"></i></button>
+            <button tabindex="-1" id="minimizeBtn"><i class="fa-solid fa-minus"></i></button>
+            <button tabindex="-1" id="closeBtn"><i class="fa-solid fa-xmark"></i></button>
         </div>
     </nav>
     <nav id="side">
@@ -25,29 +28,42 @@
         </div>
         <section>
             <h3>Main</h3>
-            <button>
+            <button tabindex="-1" id="dashboardBtn" class="selected">
                 <i class="fa-solid fa-table-columns fa-lg"></i>
                 <p>Dashboard</p>
             </button>
-            <button id="studentsBtn" class="selected">
+            <button tabindex="-1" id="studentsBtn">
                 <i class="fa-solid fa-users fa-lg"></i>
                 <p>Students</p>
             </button>
         </section>
         <section>
+            <h3>Misc</h3>
+            <button tabindex="-1" >
+                <i class="fa-solid fa-cog fa-lg"></i>
+                <p>Settings</p>
+            </button>
+        </section>
+        <section>
             <h3>Example</h3>
-            <button>
+            <button tabindex="-1" >
                 <i class="fa-solid fa-expand fa-lg"></i>
                 <p>Example</p>
             </button>
-            <button>
+            <button tabindex="-1" >
                 <i class="fa-solid fa-expand fa-lg"></i>
                 <p>Example</p>
             </button>
         </section>
     </nav>
     <main>
-        <div id="studentsPage" class="shown">
+        <div id="cover"></div>
+        <div id="dashboardPage" class="shown">
+            <div class="graph"><canvas id="weeklyActivity"></canvas></div>
+
+            <script src="./scripts/weeklyActivity.js" defer></script>
+        </div>
+        <div id="studentsPage">
             <table>
                 <thead>
                     <tr>
