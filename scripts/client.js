@@ -1,5 +1,29 @@
 const StudentsPage = document.getElementById('studentsPage')
 
+function pageHandler() {
+    let pages = {
+        "dashboardPage": "dashboardBtn",
+        "studentsPage": "studentsBtn",
+        "settingsPage": "settingsBtn",
+    }
+    let currentPage = "dashboardPage";
+    let currentBtn = "dashboardBtn"
+    Object.keys(pages).forEach((pageId) => {
+        const page = document.getElementById(pageId);
+        const btn = document.getElementById(pages[pageId]);
+        btn.onclick = function() {
+            if (currentPage == pageId) return;
+            document.getElementById(currentPage).className = "";
+            document.getElementById(currentBtn).className = "";
+            page.className = "shown";
+            btn.className = "selected";
+            currentPage = pageId;
+            currentBtn = pages[pageId];
+        }
+    })
+}
+pageHandler();
+
 let studentSignals = {}
 
 function CreateStudentsPage(students) {
@@ -49,13 +73,6 @@ fetch('https://student-tracker-api.azurewebsites.net/api/student/getall', {
         console.error('There was a problem with the fetch operation:', error);
     });
 
-
-
-
-
-
-
-
 const { ipcRenderer } = require("electron");
 
 document.getElementById('minimizeBtn').onclick = function () {
@@ -80,7 +97,6 @@ connection.start().then(function () {
 }).catch(function (err) {
     return console.error(err.toString());
 });
-
 
 connection.on("PunchoutCreated", function (punchout, student) {
     console.log(punchout, student);
