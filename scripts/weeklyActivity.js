@@ -1,50 +1,119 @@
+function createPattern() {
+    const blobCanvas = document.createElement('canvas');
+    blobCanvas.width = 300;
+    blobCanvas.height = 300;
+    const blobCtx = blobCanvas.getContext('2d');
+    blobCtx.fillStyle = "#06da7f";
+    blobCtx.fillRect(0,0,300,300)
+
+    function drawBlob(x, y, radius, color) {
+        blobCtx.beginPath();
+        blobCtx.arc(x, y, radius, 0, 2 * Math.PI);
+        blobCtx.fillStyle = color;
+        blobCtx.filter = 'blur(12px)';
+        blobCtx.fill();
+        blobCtx.filter = 'none';
+    }
+    const colors = ['rgba(3, 240, 165, 0.5)', 'rgba(0, 166, 58, 0.5)', 'rgba(13, 239, 113, 0.5)', 'rgba(3, 240, 165, 0.5)'];
+    for (let i = 0; i < 100; i++) {
+        const x = Math.random() * blobCanvas.width;
+        const y = Math.random() * blobCanvas.height;
+        const radius = Math.random() * 40 + 20;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        drawBlob(x, y, radius, color);
+    }
+
+    const gradient = blobCtx.createLinearGradient(0, 0, 0, blobCanvas.height);
+    gradient.addColorStop(0, 'rgba(6, 218, 127, 0)');
+    gradient.addColorStop(0.6, 'rgba(6, 218, 127, 0)');
+    gradient.addColorStop(0.95, 'rgba(28, 28, 31, 1)');
+    gradient.addColorStop(1, 'rgba(28, 28, 31, 1)');
+
+    // Use the gradient fill directly without the globalCompositeOperation
+    blobCtx.globalCompositeOperation = "screen-over";
+    blobCtx.fillStyle = gradient;
+    blobCtx.fillRect(0, 0, blobCanvas.width, blobCanvas.height);
+
+    return blobCtx.createPattern(blobCanvas, 'repeat');
+}
+
+const background = createPattern();
+
 const data = [
-    { Day: "Monday", Punchouts: 1 },
-    { Day: "Tuesday", Punchouts: 5 },
-    { Day: "Wednesday", Punchouts: 3 },
-    { Day: "Thursday", Punchouts: 9 },
-    { Day: "Friday", Punchouts: 4 },
+    { Day: "Mon", Punchouts: 1 },
+    { Day: "Tue", Punchouts: 5 },
+    { Day: "Wed", Punchouts: 3 },
+    { Day: "Thu", Punchouts: 9 },
+    { Day: "Fri", Punchouts: 4 },
 ];
 
-let myChart = new Chart(
-    document.getElementById('weeklyActivity'),
-    {
-        type: 'bar',
-        data: {
-            labels: data.map(row => row.Day),
-            datasets: [
-                {
-                    label: 'Weekly Punchouts',
-                    data: data.map(row => row.Punchouts),
-                    tension: 0.1
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            animation: {
-                duration: 250,
-            },
-            transitions: {
-                active: {
-                    animation: {
-                        duration: 250
-                    }
-                }
-            },
-        }
-    }
-);
+const ctx = document.getElementById('weeklyActivity').getContext('2d');
 
-setInterval(() => {
+let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: data.map(row => row.Day),
+        datasets: [
+            {
+                label: 'Weekly Punchouts',
+                data: data.map(row => row.Punchouts),
+                tension: 0.1,
+                backgroundColor: background,
+                borderRadius: 8,
+                borderSkipped: false
+            }
+        ]
+    },
+    options: {
+        plugins: {
+            title: {
+                display: false
+            },
+            legend: {
+                display: false
+            },
+            datalabels: {
+                anchor: 'start',
+                align: 'top',
+                formatter: Math.round,
+                color: '#fff',
+                font: {
+                    weight: 'bold'
+                }
+            },
+            tooltip: {
+                enabled: false
+            }
+        },
+        scales: {
+            y: {
+                display: false
+            }
+        },
+        responsive: true,
+        animation: {
+            duration: 250,
+        },
+        transitions: {
+            active: {
+                animation: {
+                    duration: 250
+                }
+            }
+        },
+    },
+    plugins: [ChartDataLabels]
+});
+
+/*setInterval(() => {
     const newData = [
-        { Day: "Monday", Punchouts: Math.floor(Math.random() * 10) + 1 },
-        { Day: "Tuesday", Punchouts: Math.floor(Math.random() * 10) + 1 },
-        { Day: "Wednesday", Punchouts: Math.floor(Math.random() * 10) + 1 },
-        { Day: "Thursday", Punchouts: Math.floor(Math.random() * 10) + 1 },
-        { Day: "Friday", Punchouts: Math.floor(Math.random() * 10) + 1 },
+        { Day: "M", Punchouts: Math.floor(Math.random() * 10) + 1 },
+        { Day: "T", Punchouts: Math.floor(Math.random() * 10) + 1 },
+        { Day: "W", Punchouts: Math.floor(Math.random() * 10) + 1 },
+        { Day: "T", Punchouts: Math.floor(Math.random() * 10) + 1 },
+        { Day: "F", Punchouts: Math.floor(Math.random() * 10) + 1 },
     ];
 
     myChart.data.datasets[0].data = newData.map(row => row.Punchouts);
     myChart.update();
-}, 1000);
+}, 1000);*/

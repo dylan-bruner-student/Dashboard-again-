@@ -11,6 +11,7 @@
     <script src="https://kit.fontawesome.com/33ea8ad391.js" crossorigin="anonymous"></script>
     <script src="./node_modules/chart.js/dist/chart.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.11/signalr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
 
 <body>
@@ -58,7 +59,17 @@
     </nav>
     <main>
         <div id="dashboardPage" class="shown">
-            <div class="graph"><canvas id="weeklyActivity"></canvas></div>
+
+            <div class="graph">
+                <div>
+                    <button tabindex="-1">ALL</button>
+                    <button tabindex="-1">AM</button>
+                    <button tabindex="-1">PM</button>
+                </div>
+                <div class="graph"><canvas id="weeklyActivity"></canvas></div>
+                
+                <h2>Weekly Activity</h2>
+            </div>
 
             <script src="./scripts/weeklyActivity.js" defer></script>
         </div>
