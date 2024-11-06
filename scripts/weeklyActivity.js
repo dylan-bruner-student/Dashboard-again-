@@ -3,7 +3,7 @@ function createPattern() {
     blobCanvas.width = 400;
     blobCanvas.height = 300;
     const blobCtx = blobCanvas.getContext('2d');
-    blobCtx.fillStyle = "#06da7f";
+    blobCtx.fillStyle = "#09d866";
     blobCtx.fillRect(0,0,300,300)
 
     function drawBlob(x, y, radius, color) {
@@ -15,24 +15,13 @@ function createPattern() {
         blobCtx.filter = 'none';
     }
     const colors = ['rgba(3, 240, 165, 0.5)', 'rgba(0, 166, 58, 0.5)', 'rgba(13, 239, 113, 0.5)', 'rgba(3, 240, 165, 0.5)'];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 250; i++) {
         const x = Math.random() * blobCanvas.width;
         const y = Math.random() * blobCanvas.height;
         const radius = Math.random() * 40 + 20;
         const color = colors[Math.floor(Math.random() * colors.length)];
         drawBlob(x, y, radius, color);
     }
-
-    const gradient = blobCtx.createLinearGradient(0, 0, 0, blobCanvas.height);
-    gradient.addColorStop(0, 'rgba(6, 218, 127, 0)');
-    gradient.addColorStop(0.6, 'rgba(6, 218, 127, 0)');
-    gradient.addColorStop(0.95, 'rgba(28, 28, 31, 1)');
-    gradient.addColorStop(1, 'rgba(28, 28, 31, 1)');
-
-    // Use the gradient fill directly without the globalCompositeOperation
-    blobCtx.globalCompositeOperation = "screen-over";
-    blobCtx.fillStyle = gradient;
-    blobCtx.fillRect(0, 0, blobCanvas.width, blobCanvas.height);
 
     return blobCtx.createPattern(blobCanvas, 'repeat');
 }
