@@ -1,6 +1,6 @@
 function createPattern() {
     const blobCanvas = document.createElement('canvas');
-    blobCanvas.width = 300;
+    blobCanvas.width = 400;
     blobCanvas.height = 300;
     const blobCtx = blobCanvas.getContext('2d');
     blobCtx.fillStyle = "#06da7f";
