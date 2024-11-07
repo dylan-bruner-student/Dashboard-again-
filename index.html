@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/dashboard.css">
     <link rel="stylesheet" href="./styles/student.css">
+    <link rel="stylesheet" href="./styles/minipage.css">
     <script src="https://kit.fontawesome.com/33ea8ad391.js" crossorigin="anonymous"></script>
     <script src="./node_modules/chart.js/dist/chart.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.11/signalr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-gradient"></script>
 </head>
 
 <body>
@@ -25,7 +27,7 @@
     <nav id="side">
         <div class="top">
             <i class="fa-solid fa-database fa-2xl"></i>
-            <h3>Softaware & Game Development</h3>
+            <h3>Software & Game Development</h3>
         </div>
         <section>
             <h3>Main</h3>
@@ -59,18 +61,18 @@
     </nav>
     <main>
         <div id="dashboardPage" class="shown">
-
             <div class="graph">
-                <div>
-                    <button tabindex="-1">ALL</button>
-                    <button tabindex="-1">AM</button>
-                    <button tabindex="-1">PM</button>
+                <h2>Weekly Activity</h2>
+                <h4>Updated 00s Ago</h4>
+                <div class="chips">
+                    <button id="groupAll" class="selected">ALL</button>
+                    <button id="groupAM">AM</button>
+                    <button id="groupPM">PM</button>
                 </div>
                 <div class="graph"><canvas id="weeklyActivity"></canvas></div>
-                
-                <h2>Weekly Activity</h2>
             </div>
-
+            <div class="leaderboard"></div>
+            <div class="leaderboard"></div>
             <script src="./scripts/weeklyActivity.js" defer></script>
         </div>
         <div id="studentsPage">
@@ -91,9 +93,21 @@
         <div id="settingsPage">
 
         </div>
-        <div id="miniPage" class="">
+        <div id="miniPage" class="shown">
             <div>
+                <i class="fa-solid fa-user fa-4x"></i>
+                <div class="title">
+                    <h2>Student Name Here</h2>
+                    <h2 class="status in">IN</h2>
+                </div>
+                <div class="title">
+                    <h4>123</h4>
+                    <h4>040169017c0503</h4>
+                </div>
+                <button id="force-in">Force Change</button>
+                <table>
 
+                </table>
             </div>
         </div>
     </main>

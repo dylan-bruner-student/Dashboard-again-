@@ -1,38 +1,37 @@
-function createPattern() {
-    const blobCanvas = document.createElement('canvas');
-    blobCanvas.width = 400;
-    blobCanvas.height = 300;
-    const blobCtx = blobCanvas.getContext('2d');
-    blobCtx.fillStyle = "#09d866";
-    blobCtx.fillRect(0,0,300,300)
+const gradient = window['chartjs-plugin-gradient'];
 
-    function drawBlob(x, y, radius, color) {
-        blobCtx.beginPath();
-        blobCtx.arc(x, y, radius, 0, 2 * Math.PI);
-        blobCtx.fillStyle = color;
-        blobCtx.filter = 'blur(12px)';
-        blobCtx.fill();
-        blobCtx.filter = 'none';
+const barLinePlugin = {
+    id: 'barLinePlugin',
+    afterDatasetsDraw(chart) {
+        const { ctx, chartArea: { top, bottom }, scales: { x, y } } = chart;
+
+        // Set the style for the line
+        ctx.strokeStyle = 'rgb(66, 255, 132)';
+        ctx.lineWidth = 2;
+
+        chart.data.datasets.forEach((dataset, datasetIndex) => {
+            const meta = chart.getDatasetMeta(datasetIndex);
+
+            meta.data.forEach((bar, index) => {
+                const barTop = bar.y;
+                const barLeft = bar.x - bar.width / 2;
+                const barRight = bar.x + bar.width / 2;
+
+                // Draw a line across the top of each bar
+                ctx.beginPath();
+                ctx.moveTo(barLeft, barTop);
+                ctx.lineTo(barRight, barTop);
+                ctx.stroke();
+            });
+        });
     }
-    const colors = ['rgba(3, 240, 165, 0.5)', 'rgba(0, 166, 58, 0.5)', 'rgba(13, 239, 113, 0.5)', 'rgba(3, 240, 165, 0.5)'];
-    for (let i = 0; i < 250; i++) {
-        const x = Math.random() * blobCanvas.width;
-        const y = Math.random() * blobCanvas.height;
-        const radius = Math.random() * 40 + 20;
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        drawBlob(x, y, radius, color);
-    }
-
-    return blobCtx.createPattern(blobCanvas, 'repeat');
-}
-
-const background = createPattern();
+};
 
 const data = [
-    { Day: "Mon", Punchouts: 1 },
-    { Day: "Tue", Punchouts: 5 },
-    { Day: "Wed", Punchouts: 3 },
-    { Day: "Thu", Punchouts: 9 },
+    { Day: "Mon", Punchouts: 0 },
+    { Day: "Tue", Punchouts: 1 },
+    { Day: "Wed", Punchouts: 2 },
+    { Day: "Thu", Punchouts: 3 },
     { Day: "Fri", Punchouts: 4 },
 ];
 
@@ -47,9 +46,22 @@ let myChart = new Chart(ctx, {
                 label: 'Weekly Punchouts',
                 data: data.map(row => row.Punchouts),
                 tension: 0.1,
-                backgroundColor: background,
-                borderRadius: 8,
-                borderSkipped: false
+                borderColor: 'rgb(66, 255, 132)',
+                borderWidth: {
+                    top: 2,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                },
+                gradient: {
+                    backgroundColor: {
+                        axis: 'y',
+                        colors: {
+                            0: 'rgb(28, 28, 31)',
+                            100: 'rgb(50, 186, 98)'
+                        }
+                    },
+                }
             }
         ]
     },
@@ -66,6 +78,7 @@ let myChart = new Chart(ctx, {
                 align: 'top',
                 formatter: Math.round,
                 color: '#fff',
+                offset: -6,
                 font: {
                     weight: 'bold'
                 }
@@ -76,7 +89,15 @@ let myChart = new Chart(ctx, {
         },
         scales: {
             y: {
-                display: false
+                display: false,
+                grid: {
+                    display: false
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
             }
         },
         responsive: true,
@@ -91,10 +112,11 @@ let myChart = new Chart(ctx, {
             }
         },
     },
-    plugins: [ChartDataLabels]
+    plugins: [ChartDataLabels, gradient]
 });
 
-/*setInterval(() => {
+
+setInterval(() => {
     const newData = [
         { Day: "M", Punchouts: Math.floor(Math.random() * 10) + 1 },
         { Day: "T", Punchouts: Math.floor(Math.random() * 10) + 1 },
@@ -105,4 +127,4 @@ let myChart = new Chart(ctx, {
 
     myChart.data.datasets[0].data = newData.map(row => row.Punchouts);
     myChart.update();
-}, 1000);*/
+}, 1000);
