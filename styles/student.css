@@ -41,6 +41,10 @@
     border-bottom-right-radius: 8px;
 }
 
+#studentsPage tbody tr:hover td {
+    background-color: #292930;
+}
+
 .studentName {
     position: relative;
 }
@@ -78,8 +82,4 @@
 }
 .status.out {
     color: rgb(255, 59, 59);
-}
-
-#studentsPage tbody tr:hover td {
-    background-color: #292930;
 }

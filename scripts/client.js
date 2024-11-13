@@ -73,15 +73,6 @@ fetch('https://student-tracker-api.azurewebsites.net/api/student/getall', {
         console.error('There was a problem with the fetch operation:', error);
     });
 
-const { ipcRenderer } = require("electron");
-
-document.getElementById('minimizeBtn').onclick = function () {
-    ipcRenderer.send('minimize')
-}
-document.getElementById('closeBtn').onclick = function () {
-    ipcRenderer.send('close')
-}
-
 connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Debug)
     .withUrl("https://student-tracker-api.azurewebsites.net/punchoutHub", {
@@ -105,3 +96,12 @@ connection.on("PunchoutCreated", function (punchout, student) {
 connection.on("PunchoutClosed", function (info) {
     console.log(info);
 });
+
+const { ipcRenderer } = require("electron");
+
+document.getElementById('minimizeBtn').onclick = function () {
+    ipcRenderer.send('minimize')
+}
+document.getElementById('closeBtn').onclick = function () {
+    ipcRenderer.send('close')
+}

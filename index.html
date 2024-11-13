@@ -49,11 +49,11 @@
         </section>
         <section>
             <h3>Example</h3>
-            <button tabindex="-1" >
+            <button tabindex="-1">
                 <i class="fa-solid fa-expand fa-lg"></i>
                 <p>Example</p>
             </button>
-            <button tabindex="-1" >
+            <button tabindex="-1">
                 <i class="fa-solid fa-expand fa-lg"></i>
                 <p>Example</p>
             </button>
@@ -71,9 +71,45 @@
                 </div>
                 <div class="graph"><canvas id="weeklyActivity"></canvas></div>
             </div>
-            <div class="leaderboard"></div>
-            <div class="leaderboard"></div>
             <script src="./scripts/weeklyActivity.js" defer></script>
+
+            <div class="current">
+                <h2>Currently Out</h2>
+                <h4>Updated 00s Ago</h4>
+
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Reason</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="studentName">
+                                    <i class="fa-solid fa-user fa-xl"></i>
+                                    <h2>Student Name</h2>
+                                    <h3>123</h3>
+                                </td>
+                                <td class="txt reason">Example</td>
+                                <td class="txt duration">00:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="leaderboard">
+                <h2>Leaderboard</h2>
+                <h4>Updated 00s Ago</h4>
+            </div>
+            <div class="today">
+                <h2>Activity Today</h2>
+                <h4>Updated 00s Ago</h4>
+            </div>
+        </div>
+        <script src="./scripts/weeklyActivity.js" defer></script>
         </div>
         <div id="studentsPage">
             <table>
@@ -86,14 +122,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                 </tbody>
             </table>
         </div>
         <div id="settingsPage">
 
         </div>
-        <div id="miniPage" class="shown">
+        <div id="miniPage" class="">
             <div>
                 <i class="fa-solid fa-user fa-4x"></i>
                 <div class="title">

@@ -4,8 +4,11 @@ let win
 
 const createWindow = () => {
     win = new BrowserWindow({
+        maxWidth: 1280,
+        maxHeight: 720,
         width: 1280,
         height: 720,
+        fullscreenable: false,
         resizable: false,
         titleBarStyle: 'hidden',
         frame: false,
