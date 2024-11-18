@@ -39,20 +39,13 @@ function CreateStudentsPage(students) {
 `;
     Object.values(students).forEach((data) => {
         if (!data.nfcId) return;
-        let student = document.createElement('tr');
-        student.innerHTML = template;
-
-        student.querySelector('.studentName h2').innerHTML = `${data.firstName} ${data.lastName}`
-        student.querySelector('.studentName h3').innerHTML = data.id
-
-        student.querySelector('.nfc').innerHTML = data.nfcId
-
-        student.querySelector('.status').innerHTML = data.currentPunchout ? 'OUT' : 'IN'
-        student.querySelector('.status').className += data.currentPunchout ? ' out' : ' in'
-
-        student.querySelector('.date').innerHTML += "DD/MM/YYYY HH:MM:SS"
-
-        StudentsPage.querySelector('tbody').appendChild(student)
+        let student = new Student(
+            data.firstName,
+            data.lastName,
+            data.id,
+            data.nfcId,
+            data.currentPunchout
+        );
     })
 }
 
