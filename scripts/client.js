@@ -1,3 +1,5 @@
+import { Student } from "../student.js";
+
 const StudentsPage = document.getElementById('studentsPage')
 
 function pageHandler() {
@@ -66,7 +68,7 @@ fetch('https://student-tracker-api.azurewebsites.net/api/student/getall', {
         console.error('There was a problem with the fetch operation:', error);
     });
 
-connection = new signalR.HubConnectionBuilder()
+var connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Debug)
     .withUrl("https://student-tracker-api.azurewebsites.net/punchoutHub", {
         accessTokenFactory: () => {

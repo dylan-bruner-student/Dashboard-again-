@@ -1,4 +1,9 @@
+import { API } from "./api.js";
+
 const gradient = window['chartjs-plugin-gradient'];
+
+const API_CLIENT = new API("https://student-tracker-api.azurewebsites.net", "NFJejnqGdi" )
+console.log(API_CLIENT.getSimpleData())
 
 const barLinePlugin = {
     id: 'barLinePlugin',

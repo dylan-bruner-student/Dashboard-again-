@@ -1,4 +1,7 @@
-class Student {
+const StudentsPage = document.getElementById('studentsPage')
+
+
+export class Student {
     constructor(firstName, lastName, ID, NFC, currentPunchout) {
         this.firstName = firstName;
         this.lastName = lastName;
