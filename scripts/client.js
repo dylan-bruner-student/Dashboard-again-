@@ -1,4 +1,4 @@
-import { Student } from "../student.js";
+import { Student } from "./student.js";
 
 const StudentsPage = document.getElementById('studentsPage')
 
