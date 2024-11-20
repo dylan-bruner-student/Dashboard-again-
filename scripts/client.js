@@ -1,4 +1,6 @@
 import { Student } from "./student.js";
+import { isElectron } from "./helpers.js";
+const { ipcRenderer } = isElectron() ? require('electron') : {};
 
 const StudentsPage = document.getElementById('studentsPage')
 
@@ -92,7 +94,6 @@ connection.on("PunchoutClosed", function (info) {
     console.log(info);
 });
 
-const { ipcRenderer } = require("electron");
 
 document.getElementById('minimizeBtn').onclick = function () {
     ipcRenderer.send('minimize')
@@ -100,3 +101,8 @@ document.getElementById('minimizeBtn').onclick = function () {
 document.getElementById('closeBtn').onclick = function () {
     ipcRenderer.send('close')
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (!isElectron())
+        document.getElementById('top').style.display = 'none'
+})
