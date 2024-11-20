@@ -3,7 +3,6 @@ import { API } from "./api.js";
 const gradient = window['chartjs-plugin-gradient'];
 
 const API_CLIENT = new API("https://student-tracker-api.azurewebsites.net", "NFJejnqGdi" )
-console.log(API_CLIENT.getSimpleData())
 
 const barLinePlugin = {
     id: 'barLinePlugin',
@@ -32,13 +31,15 @@ const barLinePlugin = {
     }
 };
 
-const data = [
+var data = [
     { Day: "Mon", Punchouts: 0 },
-    { Day: "Tue", Punchouts: 1 },
-    { Day: "Wed", Punchouts: 2 },
-    { Day: "Thu", Punchouts: 3 },
-    { Day: "Fri", Punchouts: 4 },
+    { Day: "Tue", Punchouts: 0 },
+    { Day: "Wed", Punchouts: 0 },
+    { Day: "Thu", Punchouts: 0 },
+    { Day: "Fri", Punchouts: 0 },
 ];
+
+var mostRecentData = {}
 
 const ctx = document.getElementById('weeklyActivity').getContext('2d');
 
@@ -121,15 +122,69 @@ let myChart = new Chart(ctx, {
 });
 
 
-setInterval(() => {
-    const newData = [
-        { Day: "M", Punchouts: Math.floor(Math.random() * 10) + 1 },
-        { Day: "T", Punchouts: Math.floor(Math.random() * 10) + 1 },
-        { Day: "W", Punchouts: Math.floor(Math.random() * 10) + 1 },
-        { Day: "T", Punchouts: Math.floor(Math.random() * 10) + 1 },
-        { Day: "F", Punchouts: Math.floor(Math.random() * 10) + 1 },
-    ];
+// setInterval(() => {
+    // const newData = [
+    //     { Day: "M", Punchouts: Math.floor(Math.random() * 10) + 1 },
+    //     { Day: "T", Punchouts: Math.floor(Math.random() * 10) + 1 },
+    //     { Day: "W", Punchouts: Math.floor(Math.random() * 10) + 1 },
+    //     { Day: "T", Punchouts: Math.floor(Math.random() * 10) + 1 },
+    //     { Day: "F", Punchouts: Math.floor(Math.random() * 10) + 1 },
+    // ];
+
+    // myChart.data.datasets[0].data = newData.map(row => row.Punchouts);
+    // myChart.update();
+
+
+// }, 1000);
+
+
+const btns = Array.from([
+    document.getElementById('groupAll'),
+    document.getElementById('groupPM'),
+    document.getElementById('groupAM')
+]);
+
+btns.forEach(e => { e.addEventListener('click', () => { onGroupClicked(e) }) }) 
+
+function onGroupClicked(clicked) {
+    console.log("CLICKED")
+    btns.forEach(e => {
+        e.classList.remove('selected')
+    })
+    clicked.classList.add('selected')
+
+    var filter = ''
+    if (document.getElementById('groupPM').classList.contains('selected'))
+        filter = 'AM'
+    else if (document.getElementById('groupAM').classList.contains('selected'))
+        filter = 'PM'
+
+    var filteredData = mostRecentData.filter(item => item.session !== filter); 
+
+
+    const totals = filteredData.reduce((acc, item) => {
+        acc[item.day] = (acc[item.day] || 0) + item.count;
+        return acc;
+      }, {});
+
+    var newData = [
+        { Day: "M", Punchouts: totals['Monday'] || 0 },
+        { Day: "T", Punchouts: totals['Tuesday'] || 0},
+        { Day: "W", Punchouts: totals['Wednesday'] || 0},
+        { Day: "T", Punchouts: totals['Thursday'] || 0 },
+        { Day: "F", Punchouts: totals['Friday'] || 0 }
+    ]
 
     myChart.data.datasets[0].data = newData.map(row => row.Punchouts);
-    myChart.update();
-}, 1000);
+    myChart.update()
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    API_CLIENT.getSimpleData().then(resp => resp.json()).then(r => {
+        mostRecentData = r;
+        console.log(mostRecentData)
+        onGroupClicked(document.getElementById('groupAll'))
+    })
+
+})
